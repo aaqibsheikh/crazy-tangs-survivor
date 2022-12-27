@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ChainId, useEthers, useContractFunction } from '@usedapp/core';
 import { toast } from 'react-toastify'
 import { Contract, utils } from 'ethers';
+import WalletConnectProvider from '@walletconnect/web3-provider'
 
 import { useGetCurrentPrice, useGetMaxSupply, useGetTotalSupply } from '../utilities/Web3/contract'
 
@@ -37,6 +38,33 @@ export const StyledButton = styled.button`
     box-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
+  }
+  @media (max-width: 767px) {
+    display: none;
+  }
+`;
+
+export const StyledButton2 = styled.button`
+  padding: 10px;
+  border-radius: 50px;
+  border: none;
+  display: none;
+  background-color: #37160F;
+  padding: 10px;
+  font-weight: bold;
+  color: var(--secondary-text);
+  width: 100px;
+  cursor: pointer;
+  box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
+  -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
+  -moz-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
+  :active {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+  }
+  @media (max-width: 767px) {
+    display: block;
   }
 `;
 
@@ -149,11 +177,52 @@ export default function Home() {
         setSelectedCount(count)
     }
 
+    async function connectToWalletConnect() {
+        try {
+            localStorage.clear();
+            const provider = new WalletConnectProvider({
+                qrcode: true,
+                bridge: 'https://bridge.walletconnect.org',
+                rpc: {
+                    [ChainId.Cronos]: process.env.REACT_APP_CRONOS_RPC,
+                },
+                chainId: ChainId.Cronos
+            })
+            await provider.enable()
+            if (!(provider.chainId === 338)) {
+                await switchNetwork(ChainId.Cronos)
+            }
+            await activate(provider)
+
+            // // Subscribe to events that reload the app
+            // provider.on("accountsChanged", reloadApp);
+            // provider.on("chainChanged", reloadApp);
+            // provider.on("disconnect", reloadApp);
+
+
+        } catch (error) {
+            console.error(error)
+            toast.error(error.message, {
+                position: 'bottom-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+        }
+    }
 
     async function mintNFT() {
         if (disabled) return;
         if (!account) {
             toast.error("Connect your wallet first", { autoClose: 6000 });
+            return;
+        }
+
+        if (chainId !== 338) {
+            toast.error("Connect to CronosTestnet Chain", { autoClose: 6000 });
             return;
         }
         try {
@@ -464,6 +533,15 @@ export default function Home() {
                                             >
                                                 Connect
                                             </StyledButton>
+                                            <StyledButton2
+                                                disabled={claimingNft ? 1 : 0}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    connectToWalletConnect();
+                                                }}
+                                            >
+                                                Connect
+                                            </StyledButton2>
                                         </s.Container>
                                     </>
                                 )}

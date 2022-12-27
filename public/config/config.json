@@ -1,0 +1,18 @@
+{
+  "CONTRACT_ADDRESS": "0x493d3b1e14d6c83c8d9c31504170f2035f029b14",
+  "SCAN_LINK": "https://testnet.cronoscan.com/address/0x493d3b1e14d6c83c8d9c31504170f2035f029b14",
+  "NETWORK": {
+    "NAME": "Cronos Testnet",
+    "SYMBOL": "CRO",
+    "ID": 338
+  },
+  "NFT_NAME": "Crazy Tangs Survivor",
+  "SYMBOL": "CTS",
+  "MAX_SUPPLY": 300,
+  "WEI_COST": 6000000000000000000,
+  "DISPLAY_COST": 6,
+  "GAS_LIMIT": 285000,
+  "MARKETPLACE": "",
+  "MARKETPLACE_LINK": "",
+  "SHOW_BACKGROUND": false
+}

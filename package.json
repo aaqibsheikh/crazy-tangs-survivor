@@ -1,0 +1,66 @@
+{
+  "name": "crazy-tangs-survivor",
+  "version": "1.0.0",
+  "description": "Earn royalties from defunct Crazy Tangs nft earn extra prizes thru Cronos Tycoon spin game.",
+  "private": true,
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "5.0.0",
+    "styled-components": "^5.3.0",
+    "web-vitals": "^1.0.1",
+    "web3": "^1.5.1",
+    "web3-eth-contract": "^1.5.2",
+    "ethers": "^5.7.2",
+    "@usedapp/core": "^1.2.2",
+    "@walletconnect/web3-provider": "^1.8.0",
+    "dotenv": "^16.0.3",
+    "react-toastify": "^9.1.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
+    "react-app-rewired": "^2.2.1",
+    "react-responsive-modal": "^6.2.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0"
+  },
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "autoprefixer": "^10.4.4",
+    "browserify-fs": "^1.0.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "postcss": "^8.4.12",
+    "os": "^0.1.2",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "tailwindcss": "^3.0.23",
+    "url": "^0.11.0",
+    "node-polyfill-webpack-plugin": "^2.0.1"
+  },
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -39,9 +39,9 @@ function App() {
           qrcode: true,
           bridge: 'https://bridge.walletconnect.org',
           rpc: {
-            [ChainId.CronosTestnet]: process.env.REACT_APP_CRONOS_RPC,
+            [ChainId.Cronos]: process.env.REACT_APP_CRONOS_RPC,
           },
-          chainId: ChainId.CronosTestnet
+          chainId: ChainId.Cronos
         })
         await provider.enable()
         await activate(provider)
@@ -49,7 +49,7 @@ function App() {
     }
     
     checkWalletConnectSession()
-    if (account && active && ChainId.CronosTestnet !== chainId) {
+    if (account && active && ChainId.Cronos !== chainId) {
       toast.error('Connect to Cronos Chain and refresh page', {
         position: 'bottom-right',
         autoClose: false,

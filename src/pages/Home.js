@@ -106,9 +106,9 @@ export const ResponsiveWrapper = styled.div`
 `;
 
 export const StyledLogo = styled.img`
-  width: 200px;
+  width: 75px;
   @media (min-width: 767px) {
-    width: 150px;
+    width: 100px;
   }
   transition: width 0.5s;
   transition: height 0.5s;
@@ -189,7 +189,7 @@ export default function Home() {
                 chainId: ChainId.Cronos
             })
             await provider.enable()
-            if (!(provider.chainId === 338)) {
+            if (!(provider.chainId === 25)) {
                 await switchNetwork(ChainId.Cronos)
             }
             await activate(provider)
@@ -221,8 +221,8 @@ export default function Home() {
             return;
         }
 
-        if (chainId !== 338) {
-            toast.error("Connect to CronosTestnet Chain", { autoClose: 6000 });
+        if (chainId !== 25) {
+            toast.error("Connect to Cronos Chain", { autoClose: 6000 });
             return;
         }
         try {
@@ -362,12 +362,18 @@ export default function Home() {
                 style={{ padding: 24, backgroundColor: "var(--primary)" }}
                 image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
             >
-                <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+                    <StyledLink style={{fontSize: '24px', fontWeight: 'bold'}} target={"_blank"} href="https://ezswap.vercel.app/">
+                                    EZSWAP
+                                </StyledLink>
+                    <StyledLogo alt={"logo"} src={"/config/images/Logo_Tycoon-3.png"} />
+                </div>
                 <s.SpacerSmall />
                 <s.TextTitle
                     style={{
                         textAlign: "center",
-                        fontSize: 50,
+                        fontSize: 40,
                         fontWeight: "bold",
                         color: "var(--accent-text)",
                     }}
@@ -444,7 +450,7 @@ export default function Home() {
                                 <s.SpacerXSmall />
                                 {account ? (
                                     <s.Container ai={"center"} jc={"center"}>
-                                        {chainId != 338 && (
+                                        {chainId != 25 && (
                                             <>
                                                 <s.TextDescription
                                                     style={{

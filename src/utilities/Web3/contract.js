@@ -26,6 +26,7 @@ export function useGetCurrentPrice()  {
   useEffect(() => {
     setPending(true);
     if (value) {
+      console.log('value',value)
       setCurrentPrice(utils.formatEther(value?.[0]));
       setPending(false);
     }
@@ -34,7 +35,7 @@ export function useGetCurrentPrice()  {
       setPending(false);
       setCurrentPrice(undefined);
     }
-    // console.log('WHAT AM I GETTING', value, error)
+    console.log('WHAT AM I GETTING', value, error)
   }, [value, error]);
 
   return { currentPrice, error, pending };

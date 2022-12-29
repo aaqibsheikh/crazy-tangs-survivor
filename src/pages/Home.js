@@ -509,6 +509,7 @@ export default function Home() {
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     deactivate();
+                                                    localStorage.clear();
                                                 }}
                                             >
                                                 Disconnect

@@ -21,6 +21,26 @@ const CTSContract = new Contract(
 const truncate = (input, len) =>
     input.length > len ? `${input.substring(0, len)}...` : input;
 
+
+export const StyledButtonBuy = styled.button`
+  padding: 10px;
+  border-radius: 50px;
+  border: none;
+  background-color: #37160F;
+  padding: 10px;
+  font-weight: bold;
+  color: var(--secondary-text);
+  width: 100px;
+  cursor: pointer;
+  box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
+  -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
+  -moz-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
+  :active {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+  }
+`;
 export const StyledButton = styled.button`
   padding: 10px;
   border-radius: 50px;
@@ -137,7 +157,6 @@ export const StyledLink = styled.a`
 export default function Home() {
 
     const [disabled, setDisabled] = useState(false)
-    const [selectedCount, setSelectedCount] = useState(1)
     const { activateBrowserWallet, account, activate, deactivate, chainId } = useEthers()
     const { currentPrice } = useGetCurrentPrice()
     const { maxSupply } = useGetMaxSupply()
@@ -155,26 +174,23 @@ export default function Home() {
         }
         if (state.status === 'Success') {
             setDisabled(false)
-            setSelectedCount(1)
             toast.success("Congratulations! Mint Successful.", { autoClose: 6000 });
         }
         if (state.status === 'Exception') {
             setDisabled(false)
-            setSelectedCount(1)
             toast.error(state.errorMessage, { autoClose: 6000 });
         }
         if (state.status === 'Fail') {
             setDisabled(false)
-            setSelectedCount(1)
             toast.error(state.errorMessage, { autoClose: 6000 });
         }
 
         delete state['status']
+        setClaimingNft(false)
     }, [state]);
 
     const changeMintCount = (count) => {
         console.log('count select', count)
-        setSelectedCount(count)
     }
 
     async function connectToWalletConnect() {
@@ -193,6 +209,7 @@ export default function Home() {
                 await switchNetwork(ChainId.Cronos)
             }
             await activate(provider)
+            activateBrowserWallet();
 
             // // Subscribe to events that reload the app
             // provider.on("accountsChanged", reloadApp);
@@ -215,6 +232,8 @@ export default function Home() {
     }
 
     async function mintNFT() {
+        setClaimingNft(true)
+        setDisabled(true)
         if (disabled) return;
         if (!account) {
             toast.error("Connect your wallet first", { autoClose: 6000 });
@@ -239,7 +258,8 @@ export default function Home() {
             toast.error(error?.message)
             console.log('error', error?.message)
             setDisabled(false)
-            setSelectedCount(1)
+            setClaimingNft(false)
+
         }
     }
     function floatToStr(num) {
@@ -364,9 +384,9 @@ export default function Home() {
             >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                     <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
-                    <StyledLink style={{fontSize: '24px', fontWeight: 'bold'}} target={"_blank"} href="https://ezswap.vercel.app/">
-                                    EZSWAP
-                                </StyledLink>
+                    <StyledLink style={{ fontSize: '24px', fontWeight: 'bold' }} target={"_blank"} href="https://ezswap.vercel.app/">
+                        EZSWAP
+                    </StyledLink>
                     <StyledLogo alt={"logo"} src={"/config/images/Logo_Tycoon-3.png"} />
                 </div>
                 <s.SpacerSmall />
@@ -405,6 +425,7 @@ export default function Home() {
                                 color: "var(--accent-text)",
                             }}
                         >
+
                             {totalSupply} / {maxSupply}
                         </s.TextTitle>
                         {
@@ -448,6 +469,7 @@ export default function Home() {
                                     {CONFIG.NETWORK.SYMBOL}.
                                 </s.TextTitle>
                                 <s.SpacerXSmall />
+
                                 {account ? (
                                     <s.Container ai={"center"} jc={"center"}>
                                         {chainId != 25 && (
@@ -472,8 +494,8 @@ export default function Home() {
                                             {feedback}
                                         </s.TextDescription>
                                         <s.SpacerMedium />
-                                        <div style={{ display: 'flex', }}>
-                                            <StyledButton
+                                        <div style={{ display: 'flex' }}>
+                                            <StyledButtonBuy
                                                 disabled={claimingNft ? 1 : 0}
                                                 onClick={(e) => {
                                                     e.preventDefault();
@@ -481,8 +503,8 @@ export default function Home() {
                                                 }}
                                             >
                                                 {claimingNft ? "BUSY" : "BUY"}
-                                            </StyledButton>
-                                            <StyledButton
+                                            </StyledButtonBuy>
+                                            <StyledButtonBuy
                                                 style={{ marginLeft: '10px' }}
                                                 onClick={(e) => {
                                                     e.preventDefault();
@@ -490,7 +512,7 @@ export default function Home() {
                                                 }}
                                             >
                                                 Disconnect
-                                            </StyledButton>
+                                            </StyledButtonBuy>
 
                                         </div>
 
